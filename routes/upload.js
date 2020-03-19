@@ -16,11 +16,17 @@ var storage = multer.diskStorage({
     }
   })
    
-  var upload = multer({ storage: storage })
+  var upload = multer({ storage: storage }).any()
 
   
-router.post("/",upload.single('file'), function (req, res) {
-    res.json(req.file)
+router.post("/", function (req, res) {
+   upload(req,res,function(err){
+
+    if(!err){
+      console.log(req.files);
+    }
+
+   })
 })
 
 module.exports = router;
